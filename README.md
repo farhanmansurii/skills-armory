@@ -106,7 +106,9 @@ or `←`/`→`. Per-screen actions:
 | | `⏎` | Inspect — toggle install per agent |
 | | `d` | Purge (marked skills, or the focused one) |
 | | `/` | Search |
-| Discover | `⏎` / `Space` | Install the focused skill |
+| Discover | `⏎` | Install the focused skill right away |
+| | `Space` / `A` | Mark a skill / mark all visible |
+| | `I` | Install everything marked, in one batch |
 | | `O` | Open the focused skill's source repo — lists every skill it has, not just search hits |
 | | `b` / `Esc` | Back to search (while viewing a source) |
 | | `/` | Search skills.sh, or paste a `owner/repo` to import directly |
