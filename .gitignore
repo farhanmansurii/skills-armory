@@ -1,0 +1,48 @@
+# dependencies (bun install)
+node_modules
+
+# output
+out
+dist
+*.tgz
+
+# code coverage
+coverage
+*.lcov
+
+# logs
+logs
+_.log
+report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
+
+# dotenv environment variable files
+.env
+.env.development.local
+.env.test.local
+.env.production.local
+.env.local
+
+# caches
+.eslintcache
+.cache
+*.tsbuildinfo
+
+# IntelliJ based IDEs
+.idea
+
+# Finder (MacOS) folder config
+.DS_Store
+
+# compiled binary (build artifact)
+bin
+
+# agent-specific config/session dirs, not part of the tool's source
+CLAUDE.md
+.claude
+.cursor
+
+# personal machine state (absolute paths, installed skills) — not reusable project config
+config.toml
+manifest.toml
+sources.json
+docs/superpowers

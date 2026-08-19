@@ -1,0 +1,28 @@
+{
+  "name": "armory",
+  "module": "src/cli.ts",
+  "type": "module",
+  "private": true,
+  "description": "Armory — a central skill store and installer for AI coding agents",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "bun build --compile src/cli.ts --outfile bin/armory",
+    "bundle": "bun build src/cli.ts --outfile dist/cli.js --target bun --external @opentui/core --external @opentui/react",
+    "snapshot": "bun src/snapshot.tsx"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/node": "^26.2.0",
+    "@types/react": "^19.2.18",
+    "react-devtools-core": "^7.0.1"
+  },
+  "peerDependencies": {
+    "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "@opentui/core": "^0.5.4",
+    "@opentui/react": "^0.5.4",
+    "react": "^19.2.8",
+    "smol-toml": "^1.8.0"
+  }
+}
