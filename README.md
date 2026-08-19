@@ -1,19 +1,37 @@
-# Armory
+<div align="center">
 
-A central skill store and installer for AI coding agents.
+# ⚔️ Armory
 
-Armory manages `SKILL.md` packages across every AI coding harness on your machine
-(Claude Code, Codex, Cursor, opencode, Gemini, Crush, and 15+ more) from one place —
-`~/.agents/skills` — so you install a skill once and roll it out everywhere, instead
-of copy-pasting files into each tool's own skills directory.
+**One central skill store for every AI coding agent on your machine.**
+
+[![npm version](https://img.shields.io/npm/v/skills-armory.svg?color=B45309)](https://www.npmjs.com/package/skills-armory)
+[![License: MIT](https://img.shields.io/badge/license-MIT-5B8DAE.svg)](LICENSE)
+[![Bun](https://img.shields.io/badge/runtime-bun-F97316.svg)](https://bun.sh)
+[![GitHub stars](https://img.shields.io/github/stars/farhanmansurii/armory?style=social)](https://github.com/farhanmansurii/armory)
+
+`SKILL.md` packages, installed once, synced everywhere — Claude Code, Codex,
+Cursor, opencode, Gemini, Crush, and 15+ more.
+
+[Install](#install) • [Quick start](#quick-start) • [Usage](#usage) • [How it works](#how-it-works)
+
+</div>
+
+---
 
 ## Why
 
 Running several AI coding agents day to day means the same skills (README
 optimization, traffic reports, code review helpers, etc.) end up duplicated,
-drifting, or missing entirely across tools. Armory keeps one versioned store and
-symlinks (or copies) into each agent's expected skills path, tracked in
-`manifest.toml` as the source of truth.
+drifting, or missing entirely across tools. Armory keeps one versioned store
+(`~/.agents/skills`, a git repo) and symlinks — or copies — into each agent's
+expected skills directory, tracked in `manifest.toml` as the source of truth.
+
+- **One store, every agent** — install a skill once, it's live everywhere you manage
+- **Symlink or copy** — pick per-machine whether agents share live files or get real copies
+- **Drift-aware** — detects real-dir copies, broken links, and orphaned skills; auto-fixes them
+- **Discover & import** — pull skills straight from [skills.sh](https://skills.sh) or any `owner/repo`
+- **Fast** — instant-startup compiled binary, single-pass batch filesystem scanning
+- **Scriptable** — every TUI action has a headless CLI equivalent
 
 ## Requirements
 
@@ -32,10 +50,6 @@ Both put an `armory` command on your `PATH` (Bun must be installed — see
 [Requirements](#requirements) — since the package runs straight from
 TypeScript source via Bun's shebang).
 
-```bash
-armory detect   # probe for installed agents, add new targets
-```
-
 ### From source
 
 ```bash
@@ -48,11 +62,11 @@ bun run build                      # or compile a standalone binary to bin/armor
 ## Quick start
 
 ```bash
-armory detect                        # find installed agents, register them as targets
+armory detect                         # find installed agents, register them as targets
 armory discover readme                # search skills.sh for something to install
 armory install vercel-labs/skills --skill github-presence --to claude,cursor
-armory ls                            # see the skill x agent matrix
-armory sync                          # apply the manifest to disk
+armory ls                             # see the skill x agent matrix
+armory sync                           # apply the manifest to disk
 ```
 
 Or just run `armory` with no arguments in a terminal to drive the same
@@ -148,5 +162,9 @@ armory config set install_mode copy
 ## Stack
 
 Bun + TypeScript, terminal UI built with [OpenTUI](https://github.com/sst/opentui)
-(React renderer for the terminal). Published to npm as `skills-armory`; can
-also be compiled to a standalone binary via `bun build --compile`.
+(React renderer for the terminal). Published to npm as [`skills-armory`](https://www.npmjs.com/package/skills-armory);
+can also be compiled to a standalone binary via `bun build --compile`.
+
+## License
+
+MIT
