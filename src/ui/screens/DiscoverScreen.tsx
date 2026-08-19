@@ -26,14 +26,17 @@ export function DiscoverScreen(props: {
   importing: string | null;
   installed: string[];
   installedSources: Record<string, core.TrackedSource>;
+  marked: Set<string>;
   exploringSource?: string | null;
   width: number;
   height: number;
 }) {
   const {
     skills, cursor, filter, filtering, searching, importing, installed, installedSources,
-    exploringSource, width, height,
+    marked, exploringSource, width, height,
   } = props;
+
+  const isMarked = (s: core.CommunitySkill) => marked.has(`${s.repo}::${s.name}`);
 
   const installedSet = React.useMemo(() => new Set(installed), [installed]);
   // A search result is "this exact skill" only if the store has that name AND
@@ -129,6 +132,7 @@ export function DiscoverScreen(props: {
             const on = idx === cursor;
             const inst = s.id ? formatInstalls(s.installs) : "—";
             const installedHere = isInstalled(s);
+            const markedHere = isMarked(s);
 
             if (on) {
               return (
@@ -141,6 +145,7 @@ export function DiscoverScreen(props: {
                 >
                   <text fg="#FFFFFF">
                     <span>❯ </span>
+                    <span style={{ fg: markedHere ? ACCENT : "#FFFFFF" }}>{markedHere ? "● " : "○ "}</span>
                     <span>{installedHere ? "✓ " : "  "}</span>
                     <span>{fit(s.name, nameW)} </span>
                     <span style={{ fg: CYAN }}>{fit(sourceLabel(s), sourceW)} </span>
@@ -154,6 +159,7 @@ export function DiscoverScreen(props: {
               <box key={s.name + s.repo} flexDirection="row" height={1} flexShrink={0}>
                 <text fg={PRIMARY}>
                   <span style={{ fg: DIM }}>  </span>
+                  <span style={{ fg: markedHere ? ACCENT : DIM }}>{markedHere ? "● " : "○ "}</span>
                   <span style={{ fg: installedHere ? "#10B981" : DIM }}>{installedHere ? "✓ " : "  "}</span>
                   <span>{fit(s.name, nameW)} </span>
                   <span style={{ fg: CYAN }}>{fit(sourceLabel(s), sourceW)} </span>
@@ -204,8 +210,8 @@ export function DiscoverScreen(props: {
           <box marginTop={1} height={1} flexShrink={0}>
             <text fg={DIM}>
               {exploringSource
-                ? "⏎ / Space: Install · b / Esc: back to search"
-                : "⏎ / Space: Install · O: Open source · /: Search skills.sh"}
+                ? `⏎: Install · Space: Mark · A: Mark all · I: Install marked${marked.size ? ` (${marked.size})` : ""} · b / Esc: back to search`
+                : `⏎: Install · Space: Mark · I: Install marked${marked.size ? ` (${marked.size})` : ""} · O: Open source · /: Search skills.sh`}
             </text>
           </box>
         </box>
@@ -254,7 +260,7 @@ export function DiscoverScreen(props: {
 
                   <box marginTop={1} height={1} flexShrink={0}>
                     <text fg="#10B981">
-                      ⏎ / Space: Install{!exploringSource ? " · O: Open source" : ""}
+                      ⏎: Install · Space: Mark{!exploringSource ? " · O: Open source" : ""}
                     </text>
                   </box>
                 </React.Fragment>

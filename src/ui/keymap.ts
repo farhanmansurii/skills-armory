@@ -21,7 +21,10 @@ export const KEYMAP = {
     { key: "q", label: "Quit", color: MUTED },
   ],
   discover: [
-    { key: "⏎ / Space", label: "Install", color: "#10B981" },
+    { key: "⏎", label: "Install", color: "#10B981" },
+    { key: "Space", label: "Mark", color: ACCENT },
+    { key: "A", label: "Mark All", color: CYAN },
+    { key: "I", label: "Install Marked", color: "#10B981" },
     { key: "O", label: "Open Source", color: EMBER },
     { key: "/", label: "Search", color: ACCENT },
     { key: "U", label: "Update All", color: "#38BDF8" },

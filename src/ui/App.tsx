@@ -242,6 +242,29 @@ export function App() {
     }
   };
 
+  const handleImportMany = async (items: { repo: string; name: string }[]) => {
+    if (!items.length) return;
+    setImporting(items[0]!.repo);
+    let installedCount = 0;
+    for (const [i, item] of items.entries()) {
+      setStatus(`⏳ Installing ${i + 1}/${items.length}: ${item.name} (${item.repo})...`);
+      try {
+        const res = await core.importSkillFromSource(item.repo, item.name);
+        if (res.skills.length > 0) {
+          const m = core.loadManifest();
+          core.add(m, res.skills, Object.keys(m.targets));
+          installedCount++;
+        }
+      } catch {
+        // keep going — report the tally at the end, per-item errors aren't actionable in a batch
+      }
+    }
+    setStatus(`✓ Installed ${installedCount}/${items.length} skill(s)`);
+    setMarked(new Set());
+    setImporting(null);
+    refresh();
+  };
+
   const migrateAndSync = () => {
     try {
       const m = core.loadManifest();
@@ -468,9 +491,24 @@ export function App() {
             setCursor(0);
           }
         }
-      } else if ((event.name === "return" || event.name === "space" || event.sequence === " ") && discoverSkills.length) {
+      } else if (event.name === "return" && discoverSkills.length) {
         const item = discoverSkills[cursor];
         if (item) handleImport(item.repo, item.name);
+      } else if ((event.name === "space" || event.sequence === " ") && discoverSkills.length) {
+        const item = discoverSkills[cursor];
+        if (item) mark(`${item.repo}::${item.name}`);
+      } else if (event.sequence === "A" && discoverSkills.length) {
+        setMarked(new Set(discoverSkills.map((s) => `${s.repo}::${s.name}`)));
+      } else if (event.sequence === "I" && marked.size) {
+        // Marked keys are self-contained ("repo::name"), so this installs
+        // everything marked so far even if it spans multiple explored
+        // sources/searches, not just what's in the current list.
+        handleImportMany(
+          [...marked].map((k) => {
+            const [repo, name] = k.split("::");
+            return { repo: repo!, name: name! };
+          }),
+        );
       }
     } else if (activeTab === "settings") {
       if (event.name === "down" || event.name === "j" || event.sequence === "j") down(4);
@@ -575,6 +613,7 @@ export function App() {
           importing={importing}
           installed={storeSkillsList}
           installedSources={installedSources}
+          marked={marked}
           exploringSource={exploringSource}
           width={width}
           height={contentHeight}
