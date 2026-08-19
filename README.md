@@ -1,6 +1,6 @@
 <div align="center">
 
-# ⚔️ Armory
+# ⚔️ Skills Armory
 
 **One central skill store for every AI coding agent on your machine.**
 
