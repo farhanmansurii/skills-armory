@@ -1,6 +1,6 @@
 {
   "name": "skills-armory",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "module": "src/cli.ts",
   "type": "module",
   "description": "Armory — a central skill store and installer for AI coding agents",
