@@ -23,22 +23,26 @@ symlinks (or copies) into each agent's expected skills path, tracked in
 ## Install
 
 ```bash
-git clone <this repo> && cd armory
+npm install -g skills-armory
+# or run without installing:
+bunx skills-armory
+```
+
+Both put an `armory` command on your `PATH` (Bun must be installed — see
+[Requirements](#requirements) — since the package runs straight from
+TypeScript source via Bun's shebang).
+
+```bash
+armory detect   # probe for installed agents, add new targets
+```
+
+### From source
+
+```bash
+git clone https://github.com/farhanmansurii/armory.git && cd armory
 bun install
-bun run build          # compiles a standalone binary to bin/armory
-```
-
-Put `bin/armory` on your `PATH` so the `armory` command is available anywhere:
-
-```bash
-ln -s "$(pwd)/bin/armory" /usr/local/bin/armory   # or any dir already on PATH
-armory detect                                     # probe for installed agents
-```
-
-Prefer not to compile a binary? Run straight from source instead:
-
-```bash
-bun run src/cli.ts <command>
+bun run src/cli.ts <command>       # run directly from source
+bun run build                      # or compile a standalone binary to bin/armory
 ```
 
 ## Quick start
@@ -131,7 +135,7 @@ install_mode = "symlink"   # "symlink" or "copy"
 # per-agent overrides
 
 [packs]
-# manual source-repo overrides for skill grouping in the TUI
+# manual source-repo overrides for pack grouping (`armory discover` with no query)
 ```
 
 Change settings from the CLI instead of editing by hand:
@@ -144,9 +148,5 @@ armory config set install_mode copy
 ## Stack
 
 Bun + TypeScript, terminal UI built with [OpenTUI](https://github.com/sst/opentui)
-(React renderer for the terminal). Ships as a standalone compiled binary via
-`bun build --compile`.
-
-## Status
-
-Personal tool, not published as a package (`private: true`).
+(React renderer for the terminal). Published to npm as `skills-armory`; can
+also be compiled to a standalone binary via `bun build --compile`.

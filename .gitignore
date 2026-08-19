@@ -46,3 +46,6 @@ config.toml
 manifest.toml
 sources.json
 docs/superpowers
+
+PRODUCT.md
+DESIGN.md
