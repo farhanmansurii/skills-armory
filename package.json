@@ -1,13 +1,13 @@
 {
   "name": "skills-armory",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "module": "src/cli.ts",
   "type": "module",
   "description": "Armory — a central skill store and installer for AI coding agents",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/farhanmansurii/armory"
+    "url": "https://github.com/farhanmansurii/skills-armory"
   },
   "bin": {
     "armory": "./src/cli.ts"

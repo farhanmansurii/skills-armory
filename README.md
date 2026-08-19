@@ -7,7 +7,7 @@
 [![npm version](https://img.shields.io/npm/v/skills-armory.svg?color=B45309)](https://www.npmjs.com/package/skills-armory)
 [![License: MIT](https://img.shields.io/badge/license-MIT-5B8DAE.svg)](LICENSE)
 [![Bun](https://img.shields.io/badge/runtime-bun-F97316.svg)](https://bun.sh)
-[![GitHub stars](https://img.shields.io/github/stars/farhanmansurii/armory?style=social)](https://github.com/farhanmansurii/armory)
+[![GitHub stars](https://img.shields.io/github/stars/farhanmansurii/skills-armory?style=social)](https://github.com/farhanmansurii/skills-armory)
 
 `SKILL.md` packages, installed once, synced everywhere — Claude Code, Codex,
 Cursor, opencode, Gemini, Crush, and 15+ more.
@@ -53,7 +53,7 @@ TypeScript source via Bun's shebang).
 ### From source
 
 ```bash
-git clone https://github.com/farhanmansurii/armory.git && cd armory
+git clone https://github.com/farhanmansurii/skills-armory.git && cd skills-armory
 bun install
 bun run src/cli.ts <command>       # run directly from source
 bun run build                      # or compile a standalone binary to bin/armory
