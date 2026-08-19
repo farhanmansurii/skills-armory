@@ -571,10 +571,10 @@ export async function importSkillFromSource(
   // Create temporary directory
   const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "armory-import-"));
   try {
-    const proc = Bun.spawnSync(["git", "clone", "--depth", "1", gitUrl, tmpDir]);
-    if (proc.exitCode !== 0) {
-      const err = proc.stderr.toString();
-      throw new Error(`Failed to clone ${gitUrl}: ${err}`);
+    const proc = Bun.spawn(["git", "clone", "--depth", "1", gitUrl, tmpDir], { stderr: "pipe" });
+    const [exitCode, stderr] = await Promise.all([proc.exited, new Response(proc.stderr).text()]);
+    if (exitCode !== 0) {
+      throw new Error(`Failed to clone ${gitUrl}: ${stderr}`);
     }
 
     // Search for SKILL.md files — support both monorepos with multiple sub-skills and single skills
@@ -691,8 +691,8 @@ export async function updateSkills(specificSkills?: string[]): Promise<{ updated
   // Also if central store is a git repo, pull upstream git changes
   try {
     if (fs.existsSync(path.join(STORE, ".git"))) {
-      const proc = Bun.spawnSync(["git", "-C", STORE, "pull", "--rebase"]);
-      if (proc.exitCode === 0) {
+      const proc = Bun.spawn(["git", "-C", STORE, "pull", "--rebase"]);
+      if ((await proc.exited) === 0) {
         clearCaches();
       }
     }
