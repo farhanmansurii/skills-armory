@@ -25,13 +25,30 @@ export function DiscoverScreen(props: {
   searching: boolean;
   importing: string | null;
   installed: string[];
+  installedSources: Record<string, core.TrackedSource>;
   exploringSource?: string | null;
   width: number;
   height: number;
 }) {
-  const { skills, cursor, filter, filtering, searching, importing, installed, exploringSource, width, height } = props;
+  const {
+    skills, cursor, filter, filtering, searching, importing, installed, installedSources,
+    exploringSource, width, height,
+  } = props;
 
   const installedSet = React.useMemo(() => new Set(installed), [installed]);
+  // A search result is "this exact skill" only if the store has that name AND
+  // (we don't know its source, or the tracked source matches this result's repo)
+  // — many different repos publish skills under the same name (e.g. "humanizer"),
+  // and the store is flat/name-keyed, so a name-only match would tick every one
+  // of them once you'd installed any single one.
+  const isInstalled = React.useCallback(
+    (s: core.CommunitySkill) => {
+      if (!installedSet.has(s.name)) return false;
+      const tracked = installedSources[s.name];
+      return !tracked || tracked.source === s.repo;
+    },
+    [installedSet, installedSources],
+  );
   const spinner = useSpinner(searching || !!importing);
 
   const sourceLabel = (s: core.CommunitySkill): string => s.repo || "—";
@@ -111,7 +128,7 @@ export function DiscoverScreen(props: {
             const idx = offset + vi;
             const on = idx === cursor;
             const inst = s.id ? formatInstalls(s.installs) : "—";
-            const installedHere = installedSet.has(s.name);
+            const installedHere = isInstalled(s);
 
             if (on) {
               return (
@@ -208,7 +225,7 @@ export function DiscoverScreen(props: {
           >
             {(() => {
               const s = focused;
-              const installedHere = installedSet.has(s.name);
+              const installedHere = isInstalled(s);
               return (
                 <React.Fragment>
                   <box flexDirection="row" justifyContent="space-between" height={1} flexShrink={0} marginBottom={1}>

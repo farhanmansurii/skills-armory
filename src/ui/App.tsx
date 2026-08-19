@@ -43,6 +43,7 @@ export function App() {
   const [sourceSkills, setSourceSkills] = useState<core.CommunitySkill[]>([]);
 
   const storeSkillsList = useMemo(() => core.storeSkills(), [manifest]);
+  const installedSources = useMemo(() => core.loadSources(), [manifest]);
   const sortedAgents = useMemo(() => [...snap.agents].sort(), [snap.agents]);
 
   const refresh = () => {
@@ -573,6 +574,7 @@ export function App() {
           searching={searching}
           importing={importing}
           installed={storeSkillsList}
+          installedSources={installedSources}
           exploringSource={exploringSource}
           width={width}
           height={contentHeight}

@@ -112,6 +112,7 @@ const frames: Record<string, { el: React.ReactNode; height?: number; width?: num
         searching={false}
         importing={null}
         installed={core.storeSkills()}
+        installedSources={core.loadSources()}
         width={W}
         height={H}
       />
