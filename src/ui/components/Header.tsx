@@ -48,7 +48,7 @@ export function Header(props: {
         >
           <box flexDirection="row" justifyContent="space-between" height={1} flexShrink={0}>
             <text fg={DIM}>
-              <span style={{ fg: EMBER }}>///</span> ARMORY CENTRAL STORE
+              <span style={{ fg: EMBER }}>///</span> SKILLS ARMORY CENTRAL STORE
             </text>
             <text fg={ACCENT}>v2.0.0</text>
           </box>
@@ -68,7 +68,7 @@ export function Header(props: {
         <box flexDirection="row" justifyContent="space-between" height={1} flexShrink={0} marginBottom={0}>
           <box flexDirection="row">
             <text fg={EMBER}>////// </text>
-            <text fg={PRIMARY}>Armory </text>
+            <text fg={PRIMARY}>Skills Armory </text>
             <text fg={ACCENT}>v2.0.0 </text>
             <text fg={DIM}>— Central Agent Skill Hub</text>
           </box>

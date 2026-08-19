@@ -46,7 +46,7 @@ export function SettingsScreen(props: {
     <box flexDirection="column">
       <box height={1} flexShrink={0} marginBottom={1}>
         <text fg={ACCENT}>
-          <b>Armory Configuration & Preferences</b>
+          <b>Skills Armory Configuration & Preferences</b>
         </text>
       </box>
 

@@ -13,7 +13,7 @@ export function HelpScreen() {
     >
       <box height={1} flexShrink={0} marginBottom={1}>
         <text fg={ACCENT}>
-          <b>Armory Cheatsheet & Keyboard Navigation</b>
+          <b>Skills Armory Cheatsheet & Keyboard Navigation</b>
         </text>
       </box>
 
